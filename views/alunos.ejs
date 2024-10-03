@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Alunos</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <h1>Gerenciamento de Alunos</h1>
+    <nav>
+        <a href="/">Início</a> | 
+        <a href="/alunos">Alunos</a> | 
+        <a href="/responsaveis">Responsáveis</a> | 
+        <a href="/projetos">Projetos</a> | 
+        <a href="/monitores">Monitores</a>
+    </nav>
+
+    <!-- Lista de Alunos -->
+    <div id="alunos-list">
+        <h2>Lista de Alunos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Sobrenome</th>
+                    <th>Telefone</th>
+                    <th>Gênero</th>
+                    <th>Etnia</th>
+                    <th>Data de Nascimento</th>
+                    <th>Responsáveis</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (alunos && alunos.length > 0) { %>
+                    <% alunos.forEach(aluno => { %>
+                        <tr>
+                            <td><%= aluno.nome %></td>
+                            <td><%= aluno.sobrenome %></td>
+                            <td><%= aluno.telefone %></td>
+                            <td><%= aluno.genero %></td>
+                            <td><%= aluno.etnia %></td>
+                            <td>
+                                <%= new Date(aluno.data_nascimento).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) %>
+                            </td>
+                            <td>
+                                <% if (aluno.Responsavels && aluno.Responsavels.length > 0) { %>
+                                    <% aluno.Responsavels.forEach(responsavel => { %>
+                                        <span><%= responsavel.nome %> <%= responsavel.sobrenome %></span><br>
+                                    <% }) %>
+                                <% } else { %>
+                                    Nenhum responsável
+                                <% } %>
+                            </td>
+                            <td class="icon-actions">
+                                <a href="/alunos?editar=<%= aluno.id %>" class="action-icon">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                
+                                <a href="#" class="action-icon" onclick="excluirAluno('<%= aluno.id %>', '<%= aluno.nome %>')">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                                
+                              </td>
+                              
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="8">Nenhum aluno encontrado.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+<!-- Formulário de Cadastro/Edição de Aluno -->
+<div id="add-aluno">
+    <h2><%= alunoEmEdicao ? 'Editar Aluno' : 'Adicionar Aluno' %></h2>
+    
+    <!-- Verifica se é uma edição e utiliza o method override para PUT -->
+    <form action="/alunos/<%= alunoEmEdicao ? alunoEmEdicao.id : '' %>?_method=<%= alunoEmEdicao ? 'PUT' : 'POST' %>" method="POST">
+        <div>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" value="<%= alunoEmEdicao ? alunoEmEdicao.nome : '' %>" required>
+        </div>
+        <div>
+            <label for="sobrenome">Sobrenome:</label>
+            <input type="text" id="sobrenome" name="sobrenome" value="<%= alunoEmEdicao ? alunoEmEdicao.sobrenome : '' %>" required>
+        </div>
+        <div>
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" name="telefone" value="<%= alunoEmEdicao ? alunoEmEdicao.telefone : '' %>">
+        </div>
+        <div>
+            <label for="genero">Gênero:</label>
+            <select id="genero" name="genero">
+                <option value="">Selecione</option>
+                <option value="Masculino" <%= alunoEmEdicao && alunoEmEdicao.genero === 'Masculino' ? 'selected' : '' %>>Masculino</option>
+                <option value="Feminino" <%= alunoEmEdicao && alunoEmEdicao.genero === 'Feminino' ? 'selected' : '' %>>Feminino</option>
+                <option value="Outro" <%= alunoEmEdicao && alunoEmEdicao.genero === 'Outro' ? 'selected' : '' %>>Outro</option>
+            </select>
+        </div>
+        <div>
+            <label for="etnia">Etnia:</label>
+            <select id="etnia" name="etnia">
+                <option value="">Selecione</option>
+                <option value="Branca" <%= alunoEmEdicao && alunoEmEdicao.etnia === 'Branca' ? 'selected' : '' %>>Branca</option>
+                <option value="Negra" <%= alunoEmEdicao && alunoEmEdicao.etnia === 'Negra' ? 'selected' : '' %>>Negra</option>
+                <option value="Parda" <%= alunoEmEdicao && alunoEmEdicao.etnia === 'Parda' ? 'selected' : '' %>>Parda</option>
+                <option value="Indígena" <%= alunoEmEdicao && alunoEmEdicao.etnia === 'Indígena' ? 'selected' : '' %>>Indígena</option>
+                <option value="Amarela" <%= alunoEmEdicao && alunoEmEdicao.etnia === 'Amarela' ? 'selected' : '' %>>Amarela</option>
+                <option value="Outra" <%= alunoEmEdicao && alunoEmEdicao.etnia === 'Outra' ? 'selected' : '' %>>Outra</option>
+            </select>
+        </div>
+        <div>
+            <label for="data_nascimento">Data de Nascimento:</label>
+            <input type="date" id="data_nascimento" name="data_nascimento" value="<%= alunoEmEdicao ? alunoEmEdicao.data_nascimento.toISOString().split('T')[0] : '' %>" required>
+        </div>
+        <button type="submit"><%= alunoEmEdicao ? 'Salvar Alterações' : 'Adicionar Aluno' %></button>
+    </form>
+</div>
+
+
+<script src="/js/aluno.js"></script>
+<script src="/libs/js/alert.js"></script>
+</body>
+</html>
+
+

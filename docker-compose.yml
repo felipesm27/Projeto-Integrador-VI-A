@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:latest
+    container_name: PI
+    environment:
+      POSTGRES_USER: root # Define o usuário do banco
+      POSTGRES_PASSWORD: root # Define a senha do banco
+      POSTGRES_DB: sistema_gerenciamento_alunos # Nome do banco de dados
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:

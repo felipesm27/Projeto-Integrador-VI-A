@@ -1,0 +1,197 @@
+/* Resetar estilos padrões */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Corpo da página */
+body {
+  background-color: #f4f4f9;
+  color: #333;
+  padding: 20px;
+}
+
+/* Cabeçalho */
+h1 {
+  text-align: center;
+  color: #4caf50;
+  margin-bottom: 20px;
+}
+
+/* Barra de navegação */
+nav {
+  background-color: #333;
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+nav a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+  font-size: 1.1em;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Estilo do contêiner principal das listas */
+#alunos-list,
+#responsaveis-list,
+#projetos-list,
+#monitores-list {
+  max-width: 1024px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo das tabelas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+thead {
+  background-color: #4caf50;
+  color: white;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+td {
+  background-color: #e9f5e9;
+}
+
+tr:nth-child(even) td {
+  background-color: #f9f9f9;
+}
+
+/* Estilo dos formulários */
+#add-aluno,
+#add-responsavel,
+#add-projeto,
+#add-monitor {
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#add-aluno form div,
+#add-responsavel form div,
+#add-projeto form div,
+#add-monitor form div {
+  margin-bottom: 15px;
+}
+
+#add-aluno label,
+#add-responsavel label,
+#add-projeto label,
+#add-monitor label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#add-aluno input,
+#add-responsavel input,
+#add-projeto input,
+#add-monitor input,
+#add-projeto textarea,
+#add-aluno select,
+#add-responsavel select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#add-aluno button,
+#add-responsavel button,
+#add-projeto button,
+#add-monitor button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#add-aluno button:hover,
+#add-responsavel button:hover,
+#add-projeto button:hover,
+#add-monitor button:hover {
+  background-color: #45a049;
+}
+
+#conteudo-inicial {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Estilo para os cards usando Flexbox */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  flex: 1 1 200px;
+  max-width: 250px;
+}
+
+.card h3 {
+  margin-bottom: 15px;
+  color: #4caf50;
+}
+
+.card p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.icon-actions {
+}
+
+.action-icon {
+  color: #333;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 5px;
+  border: none;
+  background: none;
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Responsáveis</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <h1>Gerenciamento de Responsáveis</h1>
+    <nav>
+        <a href="/">Início</a> | 
+        <a href="/alunos">Alunos</a> | 
+        <a href="/responsaveis">Responsáveis</a> | 
+        <a href="/projetos">Projetos</a> | 
+        <a href="/monitores">Monitores</a>
+    </nav>
+    
+    <div id="responsaveis-list">
+        <h2>Lista de Responsáveis</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Sobrenome</th>
+                    <th>Parentesco</th>
+                    <th>Telefone</th>
+                    <th>ID do Aluno</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (responsaveis && responsaveis.length > 0) { %>
+                    <% responsaveis.forEach(responsavel => { %>
+                        <tr>
+                            <td><%= responsavel.nome %></td>
+                            <td><%= responsavel.sobrenome %></td>
+                            <td><%= responsavel.parentesco %></td>
+                            <td><%= responsavel.telefone %></td>
+                            <td><%= responsavel.aluno_id %></td>
+                            <td class="icon-actions">
+                                <a href="/responsaveis?editar=<%= responsavel.id %>" class="action-icon">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="#" class="action-icon" onclick="excluirResponsavel('<%= responsavel.id %>', '<%= responsavel.nome %>')">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="6">Nenhum responsável encontrado.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+<!-- Formulário de Cadastro/Edição de Responsável -->
+<div id="add-responsavel">
+    <h2><%= responsavelEmEdicao ? 'Editar Responsável' : 'Adicionar Responsável' %></h2>
+    <form action="/responsaveis/<%= responsavelEmEdicao ? responsavelEmEdicao.id : '' %>?_method=<%= responsavelEmEdicao ? 'PUT' : 'POST' %>" method="POST">
+        <div>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" value="<%= responsavelEmEdicao ? responsavelEmEdicao.nome : '' %>" required>
+        </div>
+        <div>
+            <label for="sobrenome">Sobrenome:</label>
+            <input type="text" id="sobrenome" name="sobrenome" value="<%= responsavelEmEdicao ? responsavelEmEdicao.sobrenome : '' %>" required>
+        </div>
+        <div>
+            <label for="parentesco">Parentesco:</label>
+            <input type="text" id="parentesco" name="parentesco" value="<%= responsavelEmEdicao ? responsavelEmEdicao.parentesco : '' %>" required>
+        </div>
+        <div>
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" name="telefone" value="<%= responsavelEmEdicao ? responsavelEmEdicao.telefone : '' %>">
+        </div>
+        <div>
+            <label for="aluno_id">Aluno:</label>
+            <select id="aluno_id" name="aluno_id" required>
+                <option value="">Selecione um aluno</option>
+                <% alunos.forEach(aluno => { %>
+                    <option value="<%= aluno.id %>" <%= responsavelEmEdicao && responsavelEmEdicao.aluno_id === aluno.id ? 'selected' : '' %>><%= aluno.nome %> <%= aluno.sobrenome %></option>
+                <% }) %>
+            </select>
+        </div>
+        <button type="submit"><%= responsavelEmEdicao ? 'Salvar Alterações' : 'Adicionar Responsável' %></button>
+    </form>
+</div>
+
+    <script src="/js/responsavel.js"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Monitores</title>
+
+    <!-- Adicionando Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1>Gerenciamento de Monitores</h1>
+    <nav>
+        <a href="/">Início</a> | 
+        <a href="/alunos">Alunos</a> | 
+        <a href="/responsaveis">Responsáveis</a> | 
+        <a href="/projetos">Projetos</a> | 
+        <a href="/monitores">Monitores</a>
+    </nav>
+    
+    <div id="monitores-list">
+        <h2>Lista de Monitores</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Sobrenome</th>
+                    <th>Telefone</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (monitores && monitores.length > 0) { %>
+                    <% monitores.forEach(monitor => { %>
+                        <tr>
+                            <td><%= monitor.nome %></td>
+                            <td><%= monitor.sobrenome %></td>
+                            <td><%= monitor.telefone %></td>
+
+                            <td class="icon-actions">
+                                <a href="/monitores?editar=<%= monitor.id %>" class="action-icon">
+                                    <i class="fas fa-edit"></i> 
+                                </a>
+                                <a href="#" class="action-icon" onclick="excluirMonitor('<%= monitor.id %>', '<%= monitor.nome %>')">
+                                    <i class="fas fa-trash-alt"></i> 
+                                </a>
+                            </td>
+
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="4">Nenhum monitor encontrado.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+    
+    <div id="add-monitor">
+        <h2><%= monitorEmEdicao ? 'Editar Monitor' : 'Adicionar Monitor' %></h2>
+        <form action="/monitores/<%= monitorEmEdicao ? monitorEmEdicao.id : '' %>?_method=<%= monitorEmEdicao ? 'PUT' : 'POST' %>" method="POST">
+            <div>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" value="<%= monitorEmEdicao ? monitorEmEdicao.nome : '' %>" required>
+            </div>
+            <div>
+                <label for="sobrenome">Sobrenome:</label>
+                <input type="text" id="sobrenome" name="sobrenome" value="<%= monitorEmEdicao ? monitorEmEdicao.sobrenome : '' %>" required>
+            </div>
+            <div>
+                <label for="telefone">Telefone:</label>
+                <input type="text" id="telefone" name="telefone" value="<%= monitorEmEdicao ? monitorEmEdicao.telefone : '' %>">
+            </div>
+            <button type="submit"><%= monitorEmEdicao ? 'Salvar Alterações' : 'Adicionar Monitor' %></button>
+        </form>
+    </div>
+
+    <script src="/js/monitores.js"></script>
+    <script src="/libs/js/alert.js"></script>
+</body>
+</html>

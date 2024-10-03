@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1>Sistema de Gerenciamento de Alunos</h1>
+    <nav>
+        <a href="/">Início</a> | 
+        <a href="/alunos">Alunos</a> | 
+        <a href="/responsaveis">Responsáveis</a> | 
+        <a href="/projetos">Projetos</a> | 
+        <a href="/monitores">Monitores</a>
+    </nav>
+
+    <div id="conteudo-inicial">
+        <h2>Bem-vindo ao Sistema de Gerenciamento de Alunos</h2>
+        <p>Use a barra de navegação acima para acessar as diferentes seções do sistema.</p>
+
+        <!-- Container dos cards com Flexbox -->
+        <div class="cards-container">
+            <div class="card">
+                <h3>Total de Alunos</h3>
+                <p><%= totalAlunos %></p>
+            </div>
+            <div class="card">
+                <h3>Total de Responsáveis</h3>
+                <p><%= totalResponsaveis %></p>
+            </div>
+            <div class="card">
+                <h3>Total de Projetos</h3>
+                <p><%= totalProjetos %></p>
+            </div>
+            <div class="card">
+                <h3>Total de Monitores</h3>
+                <p><%= totalMonitores %></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
